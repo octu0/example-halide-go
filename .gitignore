@@ -1,0 +1,11 @@
+*.swp
+.DS_Store
+*.dSYM
+*.out
+Halide-*
+
+lib/*.dylib
+lib/*.o
+include/*.h
+gen/*.out
+gen/*.out.dSYM
