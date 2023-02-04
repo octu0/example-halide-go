@@ -48,7 +48,7 @@ std::tuple<Func, std::vector<Argument>> export_rotate90() {
 }
 ```
 
-with header
+with header(rotate.hpp)
 
 ```cpp
 #include <Halide.h>
@@ -60,6 +60,7 @@ std::tuple<Func, std::vector<Argument>> export_rotate90();
 Go code is to call it as below:
 
 ```go
+package example
 //go:generate go run ./cmd/download/halide.go
 
 /*
@@ -109,4 +110,4 @@ func Rotate90(in *image.RGBA) (*image.RGBA, error) {
 }
 ```
 
-SetFinalizer is used to release *halide_buffer when it is no longer needed.
+`runtime.SetFinalizer` used to release `*C.halide_buffer_t` when it is no longer needed.
