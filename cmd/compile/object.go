@@ -32,7 +32,7 @@ int main() {
     target.arch = Target::X86;
     target.bits = 64;
     target.set_features(features);
-    fn.compile_to_object("{{ .FileNameLinux }}", args, "{{ .Name }}", target);
+    fn.compile_to_object("{{ .FileNameDarwin }}", args, "{{ .Name }}", target);
   }
   {
     Target target;
@@ -85,14 +85,20 @@ int main() {
 `
 
 type GenRun struct {
-	FileNameDarwin string
-	FileNameLinux  string
-	HeaderName     string
-	Name           string
-	HppFileName    string
-	ExecFileName   string
-	MainTemplate   string
-	ExportType     string
+	FileNameDarwin    string
+	FileNameLinux     string
+	AsmNameDarwin     string
+	AsmNameLinux      string
+	LLVMAsmNameDarwin string
+	LLVMAsmNameLinux  string
+	LLVMBcNameDarwin  string
+	LLVMBcNameLinux   string
+	HeaderName        string
+	Name              string
+	HppFileName       string
+	ExecFileName      string
+	MainTemplate      string
+	ExportType        string
 }
 
 func main() {
@@ -126,24 +132,32 @@ func main() {
 
 	targets := make([]GenRun, 2)
 	targets[0] = GenRun{
-		FileNameDarwin: fmt.Sprintf("lib/lib%s_darwin.dylib", "runtime"),
-		FileNameLinux:  fmt.Sprintf("lib/lib%s_linux.o", "runtime"),
-		HeaderName:     fmt.Sprintf("include/%s.h", "runtime"),
-		Name:           "runtime",
-		HppFileName:    "",
-		ExecFileName:   fmt.Sprintf("gen/%s.out", "runtime"),
-		MainTemplate:   generateRuntimeMainTmpl,
-		ExportType:     "",
+		FileNameDarwin:   fmt.Sprintf("lib/lib%s_darwin.dylib", "runtime"),
+		FileNameLinux:    fmt.Sprintf("lib/lib%s_linux.o", "runtime"),
+		AsmNameDarwin:    fmt.Sprintf("lib/lib%s_darwin.s", "runtime"),
+		AsmNameLinux:     fmt.Sprintf("lib/lib%s_linux.s", "runtime"),
+		LLVMBcNameDarwin: fmt.Sprintf("lib/lib%s_darwin.bc", "runtime"),
+		LLVMBcNameLinux:  fmt.Sprintf("lib/lib%s_linux.bc", "runtime"),
+		HeaderName:       fmt.Sprintf("include/%s.h", "runtime"),
+		Name:             "runtime",
+		HppFileName:      "",
+		ExecFileName:     fmt.Sprintf("gen/%s.out", "runtime"),
+		MainTemplate:     generateRuntimeMainTmpl,
+		ExportType:       "",
 	}
 	targets[1] = GenRun{
-		FileNameDarwin: fmt.Sprintf("lib/lib%s_darwin.dylib", funcName),
-		FileNameLinux:  fmt.Sprintf("lib/lib%s_linux.o", funcName),
-		HeaderName:     fmt.Sprintf("include/%s.h", funcName),
-		Name:           funcName,
-		HppFileName:    fmt.Sprintf("%s.hpp", baseName),
-		ExecFileName:   fmt.Sprintf("gen/%s.out", funcName),
-		MainTemplate:   generateGenRunMainTmpl,
-		ExportType:     exportType,
+		FileNameDarwin:   fmt.Sprintf("lib/lib%s_darwin.dylib", funcName),
+		FileNameLinux:    fmt.Sprintf("lib/lib%s_linux.o", funcName),
+		AsmNameDarwin:    fmt.Sprintf("lib/lib%s_darwin.s", funcName),
+		AsmNameLinux:     fmt.Sprintf("lib/lib%s_linux.s", funcName),
+		LLVMBcNameDarwin: fmt.Sprintf("lib/lib%s_darwin.bc", funcName),
+		LLVMBcNameLinux:  fmt.Sprintf("lib/lib%s_linux.bc", funcName),
+		HeaderName:       fmt.Sprintf("include/%s.h", funcName),
+		Name:             funcName,
+		HppFileName:      fmt.Sprintf("%s.hpp", baseName),
+		ExecFileName:     fmt.Sprintf("gen/%s.out", funcName),
+		MainTemplate:     generateGenRunMainTmpl,
+		ExportType:       exportType,
 	}
 
 	libpng := exec.Command("libpng-config", "--cflags", "--ldflags")
