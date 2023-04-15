@@ -64,10 +64,6 @@ package example
 //go:generate go run ./cmd/download/halide.go
 
 /*
-#cgo darwin CFLAGS: -I${SRCDIR}/Halide-14.0.0-x86-64-osx/include
-#cgo darwin LDFLAGS: -L${SRCDIR}/Halide-14.0.0-x86-64-osx/lib
-#cgo linux  CFLAGS: -I${SRCDIR}/Halide-14.0.0-x86-64-linux/include
-#cgo linux  LDFLAGS: -L${SRCDIR}/Halide-14.0.0-x86-64-linux/lib
 #cgo CFLAGS: -I${SRCDIR}/include
 #cgo LDFLAGS: -L${SRCDIR}/lib -ldl -lm -lHalide
 #cgo darwin LDFLAGS: -lruntime_darwin
