@@ -4,12 +4,10 @@ package example
 
 /*
 #cgo CFLAGS: -I${SRCDIR}/include
-#cgo LDFLAGS: -L${SRCDIR}/lib -ldl -lm -lHalide
-#cgo darwin LDFLAGS: -lruntime_darwin
+#cgo LDFLAGS: -L${SRCDIR}/lib -ldl -lm
 #cgo darwin LDFLAGS: -lrotate90_darwin
 #cgo darwin LDFLAGS: -lrotate180_darwin
 #cgo darwin LDFLAGS: -lrotate270_darwin
-#cgo linux LDFLAGS: -lruntime_linux
 #cgo linux LDFLAGS: -lrotate90_linux
 #cgo linux LDFLAGS: -lrotate180_linux
 #cgo linux LDFLAGS: -lrotate270_linux

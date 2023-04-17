@@ -65,10 +65,8 @@ package example
 
 /*
 #cgo CFLAGS: -I${SRCDIR}/include
-#cgo LDFLAGS: -L${SRCDIR}/lib -ldl -lm -lHalide
-#cgo darwin LDFLAGS: -lruntime_darwin
+#cgo LDFLAGS: -L${SRCDIR}/lib -ldl -lm
 #cgo darwin LDFLAGS: -lrotate90_darwin
-#cgo linux LDFLAGS: -lruntime_linux
 #cgo linux LDFLAGS: -lrotate90_linux
 
 #include "rotate90.h"

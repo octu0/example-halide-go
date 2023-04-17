@@ -4,7 +4,7 @@ package example
 
 /*
 #cgo CFLAGS: -I${SRCDIR}/include
-#cgo LDFLAGS: -L${SRCDIR}/lib -ldl -lm -lHalide
+#cgo LDFLAGS: -L${SRCDIR}/lib -ldl -lm
 #cgo darwin LDFLAGS: -lruntime_darwin
 #cgo linux LDFLAGS: -lruntime_linux
 
