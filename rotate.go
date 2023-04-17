@@ -23,7 +23,6 @@ import "C"
 import (
 	"fmt"
 	"image"
-	"runtime"
 
 	_ "github.com/benesch/cgosymbolizer"
 )
@@ -36,9 +35,7 @@ func Rotate90(in *image.RGBA) (*image.RGBA, error) {
 	if err != nil {
 		return nil, err
 	}
-	runtime.SetFinalizer(out, func(me *image.RGBA) {
-		HalideFreeBuffer(outBuf)
-	})
+	defer HalideFreeBuffer(outBuf)
 
 	inBuf, err := HalideBufferRGBA(in.Pix, width, height)
 	if err != nil {
@@ -66,9 +63,7 @@ func Rotate180(in *image.RGBA) (*image.RGBA, error) {
 	if err != nil {
 		return nil, err
 	}
-	runtime.SetFinalizer(out, func(me *image.RGBA) {
-		HalideFreeBuffer(outBuf)
-	})
+	defer HalideFreeBuffer(outBuf)
 
 	inBuf, err := HalideBufferRGBA(in.Pix, width, height)
 	if err != nil {
@@ -96,9 +91,7 @@ func Rotate270(in *image.RGBA) (*image.RGBA, error) {
 	if err != nil {
 		return nil, err
 	}
-	runtime.SetFinalizer(out, func(me *image.RGBA) {
-		HalideFreeBuffer(outBuf)
-	})
+	defer HalideFreeBuffer(outBuf)
 
 	inBuf, err := HalideBufferRGBA(in.Pix, width, height)
 	if err != nil {

@@ -83,9 +83,7 @@ func Rotate90(in *image.RGBA) (*image.RGBA, error) {
 	if err != nil {
 		return nil, err
 	}
-	runtime.SetFinalizer(out, func(me *image.RGBA) {
-		HalideFreeBuffer(outBuf)
-	})
+	defer HalideFreeBuffer(outBuf)
 
 	inBuf, err := HalideBufferRGBA(in.Pix, width, height)
 	if err != nil {
@@ -105,5 +103,3 @@ func Rotate90(in *image.RGBA) (*image.RGBA, error) {
 	return out, nil
 }
 ```
-
-`runtime.SetFinalizer` used to release `*C.halide_buffer_t` when it is no longer needed.
